@@ -1,0 +1,51 @@
+## Core Build Artifacts
+bin/
+obj/
+
+## Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+bld/
+
+## IDE - Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+## IDE - VS Code
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+## IDE - JetBrains Rider
+.idea/
+*.sln.iml
+
+## User-specific files & Local Settings
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+appsettings.Development.json
+
+## NuGet Packages
+*.nupkg
+**/[Pp]ackages/*
+!**/[Pp]ackages/build/
+
+## OS-generated files
+.DS_Store
+Thumbs.db
+
+
+## Custom
+docs/
+temp/
+*.pdf

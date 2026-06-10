@@ -1,0 +1,1 @@
+Implementar a obtenção de valores novos automaticamente se não forem encontrados (e data maior que ultima referencia).

@@ -1,0 +1,124 @@
+{
+  "tabelas_historicas_inss": {
+    "ano_2026": {
+      "portaria_referencia": "Portaria Interministerial MPS/MF nº 13/2026",
+      "regime_clt": {
+        "salario_minimo_piso": 1621.00,
+        "teto_maximo": 8475.55,
+        "faixas_aliquotas_percentual": [
+          { "de": 0.00, "ate": 1621.00, "percentual": 7.5 },
+          { "de": 1621.01, "ate": 2902.84, "percentual": 9.0 },
+          { "de": 2902.85, "ate": 4354.27, "percentual": 12.0 },
+          { "de": 4354.28, "ate": 8475.55, "percentual": 14.0 }
+        ],
+        "valor_maximo_contribuicao_mensal_teto": 988.09
+      },
+      "contribuinte_individual_autonomo": {
+        "base_minima": 1621.00,
+        "base_maxima_teto": 8475.55,
+        "percentual_plano_normal": 20.0,
+        "valor_maximo_contribuicao_mensal_teto": 1695.11
+      }
+    },
+    "ano_2025": {
+      "portaria_referencia": "Portaria Interministerial MPS/MF nº 6/2025",
+      "regime_clt": {
+        "salario_minimo_piso": 1518.00,
+        "teto_maximo": 8157.41,
+        "faixas_aliquotas_percentual": [
+          { "de": 0.00, "ate": 1518.00, "percentual": 7.5 },
+          { "de": 1518.01, "ate": 2793.88, "percentual": 9.0 },
+          { "de": 2793.89, "ate": 4190.83, "percentual": 12.0 },
+          { "de": 4190.84, "ate": 8157.41, "percentual": 14.0 }
+        ],
+        "valor_maximo_contribuicao_mensal_teto": 951.63
+      },
+      "contribuinte_individual_autonomo": {
+        "base_minima": 1518.00,
+        "base_maxima_teto": 8157.41,
+        "percentual_plano_normal": 20.0,
+        "valor_maximo_contribuicao_mensal_teto": 1631.48
+      }
+    },
+    "ano_2024": {
+      "portaria_referencia": "Portaria Interministerial MPS/MF nº 2/2024",
+      "regime_clt": {
+        "salario_minimo_piso": 1412.00,
+        "teto_maximo": 7786.02,
+        "faixas_aliquotas_percentual": [
+          { "de": 0.00, "ate": 1412.00, "percentual": 7.5 },
+          { "de": 1412.01, "ate": 2666.68, "percentual": 9.0 },
+          { "de": 2666.69, "ate": 4000.03, "percentual": 12.0 },
+          { "de": 4000.04, "ate": 7786.02, "percentual": 14.0 }
+        ],
+        "valor_maximo_contribuicao_mensal_teto": 908.85
+      },
+      "contribuinte_individual_autonomo": {
+        "base_minima": 1412.00,
+        "base_maxima_teto": 7786.02,
+        "percentual_plano_normal": 20.0,
+        "valor_maximo_contribuicao_mensal_teto": 1557.20
+      }
+    },
+    "ano_2023": {
+      "portaria_referencia": "Portaria Interministerial MPS/MF nº 27/2023",
+      "regime_clt": {
+        "salario_minimo_piso": 1320.00,
+        "teto_maximo": 7507.49,
+        "faixas_aliquotas_percentual": [
+          { "de": 0.00, "ate": 1320.00, "percentual": 7.5 },
+          { "de": 1320.01, "ate": 2571.29, "percentual": 9.0 },
+          { "de": 2571.30, "ate": 3856.94, "percentual": 12.0 },
+          { "de": 3856.95, "ate": 7507.49, "percentual": 14.0 }
+        ],
+        "valor_maximo_contribuicao_mensal_teto": 877.24
+      },
+      "contribuinte_individual_autonomo": {
+        "base_minima": 1320.00,
+        "base_maxima_teto": 7507.49,
+        "percentual_plano_normal": 20.0,
+        "valor_maximo_contribuicao_mensal_teto": 1501.50
+      }
+    },
+    "ano_2022": {
+      "portaria_referencia": "Portaria Interministerial MTP/ME nº 12/2022",
+      "regime_clt": {
+        "salario_minimo_piso": 1212.00,
+        "teto_maximo": 7087.22,
+        "faixas_aliquotas_percentual": [
+          { "de": 0.00, "ate": 1212.00, "percentual": 7.5 },
+          { "de": 1212.01, "ate": 2427.35, "percentual": 9.0 },
+          { "de": 2427.36, "ate": 3641.03, "percentual": 12.0 },
+          { "de": 3641.04, "ate": 7087.22, "percentual": 14.0 }
+        ],
+        "valor_maximo_contribuicao_mensal_teto": 828.39
+      },
+      "contribuinte_individual_autonomo": {
+        "base_minima": 1212.00,
+        "base_maxima_teto": 7087.22,
+        "percentual_plano_normal": 20.0,
+        "valor_maximo_contribuicao_mensal_teto": 1417.44
+      }
+    },
+    "ano_2021": {
+      "portaria_referencia": "Portaria SEPRT/ME nº 477/2021",
+      "regime_clt": {
+        "salario_minimo_piso": 1100.00,
+        "teto_maximo": 6433.57,
+        "faixas_aliquotas_percentual": [
+          { "de": 0.00, "ate": 1100.00, "percentual": 7.5 },
+          { "de": 1100.01, "ate": 2203.48, "percentual": 9.0 },
+          { "de": 2203.49, "ate": 3305.22, "percentual": 12.0 },
+          { "de": 3305.23, "ate": 6433.57, "percentual": 14.0 }
+        ],
+        "valor_maximo_contribuicao_mensal_teto": 751.99
+      },
+      "contribuinte_individual_autonomo": {
+        "base_minima": 1100.00,
+        "base_maxima_teto": 6433.57,
+        "percentual_plano_normal": 20.0,
+        "valor_maximo_contribuicao_mensal_teto": 1286.71
+      }
+    }
+  }
+}

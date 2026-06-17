@@ -22,6 +22,18 @@ partial class Form1
     private Label lblDataInicial;
     private Button btnFiltrar;
     private Button btnLimparFiltros;
+    private Panel panelExcedentes;
+    private Label lblExcedentes;
+    private RadioButton rdoTodosExcedentes;
+    private RadioButton rdoSomenteExcedentes;
+    private Panel panelRestituicao;
+    private Label lblRestituicao;
+    private RadioButton rdoTodosRestituicao;
+    private RadioButton rdoSomenteAptosRestituicao;
+    private Panel panelPendencia;
+    private Label lblPendencia;
+    private RadioButton rdoTodosPendencia;
+    private RadioButton rdoSomentesSemPendencia;
     private TabControl tabControl;
     private TabPage tabPageLancamentos;
     private TabPage tabPageAgrupado;
@@ -39,9 +51,6 @@ partial class Form1
     private Label lblContribuidor;
     private Label lblRangeDatas;
     private Label lblTotalContribuicoesCount;
-    private CheckBox chkAptosRestituicao;
-    private CheckBox chkExcedentesAptos;
-    private CheckBox chkComExcedente;
     private ProgressBar progressBar;
     private StatusStrip statusStrip;
     private ToolStripStatusLabel toolStripStatusLabel;
@@ -59,9 +68,18 @@ partial class Form1
         lblDataInicial = new Label();
         btnFiltrar = new Button();
         btnLimparFiltros = new Button();
-        chkAptosRestituicao = new CheckBox();
-        chkExcedentesAptos = new CheckBox();
-        chkComExcedente = new CheckBox();
+        panelExcedentes = new Panel();
+        lblExcedentes = new Label();
+        rdoTodosExcedentes = new RadioButton();
+        rdoSomenteExcedentes = new RadioButton();
+        panelRestituicao = new Panel();
+        lblRestituicao = new Label();
+        rdoTodosRestituicao = new RadioButton();
+        rdoSomenteAptosRestituicao = new RadioButton();
+        panelPendencia = new Panel();
+        lblPendencia = new Label();
+        rdoTodosPendencia = new RadioButton();
+        rdoSomentesSemPendencia = new RadioButton();
         tabControl = new TabControl();
         tabPageLancamentos = new TabPage();
         dgvContribuicoes = new DataGridView();
@@ -83,6 +101,9 @@ partial class Form1
         statusStrip = new StatusStrip();
         toolStripStatusLabel = new ToolStripStatusLabel();
         groupBoxFiltros.SuspendLayout();
+        panelExcedentes.SuspendLayout();
+        panelRestituicao.SuspendLayout();
+        panelPendencia.SuspendLayout();
         tabControl.SuspendLayout();
         tabPageLancamentos.SuspendLayout();
         ((System.ComponentModel.ISupportInitialize)dgvContribuicoes).BeginInit();
@@ -122,14 +143,14 @@ partial class Form1
         groupBoxFiltros.Controls.Add(lblDataInicial);
         groupBoxFiltros.Controls.Add(btnFiltrar);
         groupBoxFiltros.Controls.Add(btnLimparFiltros);
-        groupBoxFiltros.Controls.Add(chkAptosRestituicao);
-        groupBoxFiltros.Controls.Add(chkExcedentesAptos);
-        groupBoxFiltros.Controls.Add(chkComExcedente);
+        groupBoxFiltros.Controls.Add(panelExcedentes);
+        groupBoxFiltros.Controls.Add(panelRestituicao);
+        groupBoxFiltros.Controls.Add(panelPendencia);
         groupBoxFiltros.Location = new Point(14, 87);
         groupBoxFiltros.Margin = new Padding(3, 4, 3, 4);
         groupBoxFiltros.Name = "groupBoxFiltros";
         groupBoxFiltros.Padding = new Padding(3, 4, 3, 4);
-        groupBoxFiltros.Size = new Size(1353, 107);
+        groupBoxFiltros.Size = new Size(1353, 110);
         groupBoxFiltros.TabIndex = 2;
         groupBoxFiltros.TabStop = false;
         groupBoxFiltros.Text = "Filtros";
@@ -137,7 +158,7 @@ partial class Form1
         // dtpDataFinal
         // 
         dtpDataFinal.Format = DateTimePickerFormat.Short;
-        dtpDataFinal.Location = new Point(155, 57);
+        dtpDataFinal.Location = new Point(155, 60);
         dtpDataFinal.Margin = new Padding(3, 4, 3, 4);
         dtpDataFinal.Name = "dtpDataFinal";
         dtpDataFinal.Size = new Size(114, 27);
@@ -146,7 +167,7 @@ partial class Form1
         // dtpDataInicial
         // 
         dtpDataInicial.Format = DateTimePickerFormat.Short;
-        dtpDataInicial.Location = new Point(7, 57);
+        dtpDataInicial.Location = new Point(7, 60);
         dtpDataInicial.Margin = new Padding(3, 4, 3, 4);
         dtpDataInicial.Name = "dtpDataInicial";
         dtpDataInicial.Size = new Size(114, 27);
@@ -155,7 +176,7 @@ partial class Form1
         // lblDataFinal
         // 
         lblDataFinal.AutoSize = true;
-        lblDataFinal.Location = new Point(155, 30);
+        lblDataFinal.Location = new Point(155, 33);
         lblDataFinal.Name = "lblDataFinal";
         lblDataFinal.Size = new Size(79, 20);
         lblDataFinal.TabIndex = 3;
@@ -164,7 +185,7 @@ partial class Form1
         // lblDataInicial
         // 
         lblDataInicial.AutoSize = true;
-        lblDataInicial.Location = new Point(7, 30);
+        lblDataInicial.Location = new Point(7, 33);
         lblDataInicial.Name = "lblDataInicial";
         lblDataInicial.Size = new Size(87, 20);
         lblDataInicial.TabIndex = 2;
@@ -172,7 +193,7 @@ partial class Form1
         // 
         // btnFiltrar
         // 
-        btnFiltrar.Location = new Point(304, 53);
+        btnFiltrar.Location = new Point(304, 56);
         btnFiltrar.Margin = new Padding(3, 4, 3, 4);
         btnFiltrar.Name = "btnFiltrar";
         btnFiltrar.Size = new Size(86, 31);
@@ -183,7 +204,7 @@ partial class Form1
         // 
         // btnLimparFiltros
         // 
-        btnLimparFiltros.Location = new Point(407, 53);
+        btnLimparFiltros.Location = new Point(407, 56);
         btnLimparFiltros.Margin = new Padding(3, 4, 3, 4);
         btnLimparFiltros.Name = "btnLimparFiltros";
         btnLimparFiltros.Size = new Size(114, 31);
@@ -192,44 +213,140 @@ partial class Form1
         btnLimparFiltros.UseVisualStyleBackColor = true;
         btnLimparFiltros.Click += btnLimparFiltros_Click;
         // 
-        // chkAptosRestituicao
+        // panelExcedentes
         // 
-        chkAptosRestituicao.AutoSize = true;
-        chkAptosRestituicao.Location = new Point(540, 57);
-        chkAptosRestituicao.Name = "chkAptosRestituicao";
-        chkAptosRestituicao.Size = new Size(181, 24);
-        chkAptosRestituicao.TabIndex = 6;
-        chkAptosRestituicao.Text = "Aptos para Restituição";
-        chkAptosRestituicao.UseVisualStyleBackColor = true;
-        chkAptosRestituicao.CheckedChanged += chkAptosRestituicao_CheckedChanged;
+        panelExcedentes.Controls.Add(lblExcedentes);
+        panelExcedentes.Controls.Add(rdoTodosExcedentes);
+        panelExcedentes.Controls.Add(rdoSomenteExcedentes);
+        panelExcedentes.Location = new Point(548, 14);
+        panelExcedentes.Name = "panelExcedentes";
+        panelExcedentes.Size = new Size(210, 82);
+        panelExcedentes.TabIndex = 9;
         // 
-        // chkExcedentesAptos
+        // lblExcedentes
         // 
-        chkExcedentesAptos.AutoSize = true;
-        chkExcedentesAptos.Location = new Point(750, 57);
-        chkExcedentesAptos.Name = "chkExcedentesAptos";
-        chkExcedentesAptos.Size = new Size(201, 24);
-        chkExcedentesAptos.TabIndex = 7;
-        chkExcedentesAptos.Text = "Apenas Excedentes Aptos";
-        chkExcedentesAptos.UseVisualStyleBackColor = true;
-        chkExcedentesAptos.CheckedChanged += chkExcedentesAptos_CheckedChanged;
+        lblExcedentes.AutoSize = true;
+        lblExcedentes.Location = new Point(0, 2);
+        lblExcedentes.Name = "lblExcedentes";
+        lblExcedentes.Size = new Size(83, 20);
+        lblExcedentes.TabIndex = 0;
+        lblExcedentes.Text = "Excedentes:";
         // 
-        // chkComExcedente
+        // rdoTodosExcedentes
         // 
-        chkComExcedente.AutoSize = true;
-        chkComExcedente.Location = new Point(957, 57);
-        chkComExcedente.Name = "chkComExcedente";
-        chkComExcedente.Size = new Size(230, 24);
-        chkComExcedente.TabIndex = 8;
-        chkComExcedente.Text = "Competências com Excedente";
-        chkComExcedente.UseVisualStyleBackColor = true;
-        chkComExcedente.CheckedChanged += chkComExcedente_CheckedChanged;
+        rdoTodosExcedentes.AutoSize = true;
+        rdoTodosExcedentes.Checked = true;
+        rdoTodosExcedentes.Location = new Point(0, 22);
+        rdoTodosExcedentes.Name = "rdoTodosExcedentes";
+        rdoTodosExcedentes.Size = new Size(65, 24);
+        rdoTodosExcedentes.TabIndex = 1;
+        rdoTodosExcedentes.TabStop = true;
+        rdoTodosExcedentes.Text = "Todos";
+        rdoTodosExcedentes.UseVisualStyleBackColor = true;
+        rdoTodosExcedentes.CheckedChanged += rdo_CheckedChanged;
+        // 
+        // rdoSomenteExcedentes
+        // 
+        rdoSomenteExcedentes.AutoSize = true;
+        rdoSomenteExcedentes.Location = new Point(0, 50);
+        rdoSomenteExcedentes.Name = "rdoSomenteExcedentes";
+        rdoSomenteExcedentes.Size = new Size(195, 24);
+        rdoSomenteExcedentes.TabIndex = 2;
+        rdoSomenteExcedentes.Text = "Somente com excedente";
+        rdoSomenteExcedentes.UseVisualStyleBackColor = true;
+        rdoSomenteExcedentes.CheckedChanged += rdo_CheckedChanged;
+        // 
+        // panelRestituicao
+        // 
+        panelRestituicao.Controls.Add(lblRestituicao);
+        panelRestituicao.Controls.Add(rdoTodosRestituicao);
+        panelRestituicao.Controls.Add(rdoSomenteAptosRestituicao);
+        panelRestituicao.Location = new Point(768, 14);
+        panelRestituicao.Name = "panelRestituicao";
+        panelRestituicao.Size = new Size(250, 82);
+        panelRestituicao.TabIndex = 10;
+        // 
+        // lblRestituicao
+        // 
+        lblRestituicao.AutoSize = true;
+        lblRestituicao.Location = new Point(0, 2);
+        lblRestituicao.Name = "lblRestituicao";
+        lblRestituicao.Size = new Size(90, 20);
+        lblRestituicao.TabIndex = 0;
+        lblRestituicao.Text = "Restituição:";
+        // 
+        // rdoTodosRestituicao
+        // 
+        rdoTodosRestituicao.AutoSize = true;
+        rdoTodosRestituicao.Checked = true;
+        rdoTodosRestituicao.Location = new Point(0, 22);
+        rdoTodosRestituicao.Name = "rdoTodosRestituicao";
+        rdoTodosRestituicao.Size = new Size(65, 24);
+        rdoTodosRestituicao.TabIndex = 1;
+        rdoTodosRestituicao.TabStop = true;
+        rdoTodosRestituicao.Text = "Todos";
+        rdoTodosRestituicao.UseVisualStyleBackColor = true;
+        rdoTodosRestituicao.CheckedChanged += rdo_CheckedChanged;
+        // 
+        // rdoSomenteAptosRestituicao
+        // 
+        rdoSomenteAptosRestituicao.AutoSize = true;
+        rdoSomenteAptosRestituicao.Location = new Point(0, 50);
+        rdoSomenteAptosRestituicao.Name = "rdoSomenteAptosRestituicao";
+        rdoSomenteAptosRestituicao.Size = new Size(230, 24);
+        rdoSomenteAptosRestituicao.TabIndex = 2;
+        rdoSomenteAptosRestituicao.Text = "Somente aptos para restituição";
+        rdoSomenteAptosRestituicao.UseVisualStyleBackColor = true;
+        rdoSomenteAptosRestituicao.CheckedChanged += rdo_CheckedChanged;
+        // 
+        // panelPendencia
+        // 
+        panelPendencia.Controls.Add(lblPendencia);
+        panelPendencia.Controls.Add(rdoTodosPendencia);
+        panelPendencia.Controls.Add(rdoSomentesSemPendencia);
+        panelPendencia.Location = new Point(1028, 14);
+        panelPendencia.Name = "panelPendencia";
+        panelPendencia.Size = new Size(260, 82);
+        panelPendencia.TabIndex = 11;
+        // 
+        // lblPendencia
+        // 
+        lblPendencia.AutoSize = true;
+        lblPendencia.Location = new Point(0, 2);
+        lblPendencia.Name = "lblPendencia";
+        lblPendencia.Size = new Size(79, 20);
+        lblPendencia.TabIndex = 0;
+        lblPendencia.Text = "Pendência:";
+        // 
+        // rdoTodosPendencia
+        // 
+        rdoTodosPendencia.AutoSize = true;
+        rdoTodosPendencia.Checked = true;
+        rdoTodosPendencia.Location = new Point(0, 22);
+        rdoTodosPendencia.Name = "rdoTodosPendencia";
+        rdoTodosPendencia.Size = new Size(65, 24);
+        rdoTodosPendencia.TabIndex = 1;
+        rdoTodosPendencia.TabStop = true;
+        rdoTodosPendencia.Text = "Todos";
+        rdoTodosPendencia.UseVisualStyleBackColor = true;
+        rdoTodosPendencia.CheckedChanged += rdo_CheckedChanged;
+        // 
+        // rdoSomentesSemPendencia
+        // 
+        rdoSomentesSemPendencia.AutoSize = true;
+        rdoSomentesSemPendencia.Location = new Point(0, 50);
+        rdoSomentesSemPendencia.Name = "rdoSomentesSemPendencia";
+        rdoSomentesSemPendencia.Size = new Size(220, 24);
+        rdoSomentesSemPendencia.TabIndex = 2;
+        rdoSomentesSemPendencia.Text = "Somente sem pendência";
+        rdoSomentesSemPendencia.UseVisualStyleBackColor = true;
+        rdoSomentesSemPendencia.CheckedChanged += rdo_CheckedChanged;
         // 
         // tabControl
         // 
         tabControl.Controls.Add(tabPageLancamentos);
         tabControl.Controls.Add(tabPageAgrupado);
-        tabControl.Location = new Point(14, 213);
+        tabControl.Location = new Point(14, 216);
         tabControl.Margin = new Padding(3, 4, 3, 4);
         tabControl.Name = "tabControl";
         tabControl.SelectedIndex = 0;
@@ -298,7 +415,7 @@ partial class Form1
         groupBoxPaginacao.Controls.Add(lblPaginaInfo);
         groupBoxPaginacao.Controls.Add(btnProximaPagina);
         groupBoxPaginacao.Controls.Add(btnPaginaAnterior);
-        groupBoxPaginacao.Location = new Point(14, 671);
+        groupBoxPaginacao.Location = new Point(14, 674);
         groupBoxPaginacao.Margin = new Padding(3, 4, 3, 4);
         groupBoxPaginacao.Name = "groupBoxPaginacao";
         groupBoxPaginacao.Padding = new Padding(3, 4, 3, 4);
@@ -347,7 +464,7 @@ partial class Form1
         groupBoxTotais.Controls.Add(lblContribuidor);
         groupBoxTotais.Controls.Add(lblRangeDatas);
         groupBoxTotais.Controls.Add(lblTotalContribuicoesCount);
-        groupBoxTotais.Location = new Point(643, 671);
+        groupBoxTotais.Location = new Point(643, 674);
         groupBoxTotais.Margin = new Padding(3, 4, 3, 4);
         groupBoxTotais.Name = "groupBoxTotais";
         groupBoxTotais.Padding = new Padding(3, 4, 3, 4);
@@ -426,7 +543,7 @@ partial class Form1
         // 
         // progressBar
         // 
-        progressBar.Location = new Point(14, 852);
+        progressBar.Location = new Point(14, 855);
         progressBar.Margin = new Padding(3, 4, 3, 4);
         progressBar.Name = "progressBar";
         progressBar.Size = new Size(1463, 10);
@@ -438,7 +555,7 @@ partial class Form1
         // 
         statusStrip.ImageScalingSize = new Size(20, 20);
         statusStrip.Items.AddRange(new ToolStripItem[] { toolStripStatusLabel });
-        statusStrip.Location = new Point(0, 874);
+        statusStrip.Location = new Point(0, 877);
         statusStrip.Name = "statusStrip";
         statusStrip.Padding = new Padding(1, 0, 16, 0);
         statusStrip.Size = new Size(1489, 26);
@@ -455,7 +572,7 @@ partial class Form1
         // 
         AutoScaleDimensions = new SizeF(8F, 20F);
         AutoScaleMode = AutoScaleMode.Font;
-        ClientSize = new Size(1489, 900);
+        ClientSize = new Size(1489, 903);
         Controls.Add(statusStrip);
         Controls.Add(progressBar);
         Controls.Add(groupBoxTotais);
@@ -469,6 +586,12 @@ partial class Form1
         Text = "GPrev Suite - Análise CNIS";
         groupBoxFiltros.ResumeLayout(false);
         groupBoxFiltros.PerformLayout();
+        panelExcedentes.ResumeLayout(false);
+        panelExcedentes.PerformLayout();
+        panelRestituicao.ResumeLayout(false);
+        panelRestituicao.PerformLayout();
+        panelPendencia.ResumeLayout(false);
+        panelPendencia.PerformLayout();
         tabControl.ResumeLayout(false);
         tabPageLancamentos.ResumeLayout(false);
         ((System.ComponentModel.ISupportInitialize)dgvContribuicoes).EndInit();

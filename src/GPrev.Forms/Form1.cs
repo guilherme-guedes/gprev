@@ -37,6 +37,7 @@ public partial class Form1 : Form
         dgvContribuicoes.Columns.Add("Remuneracao", "Remuneração");
         dgvContribuicoes.Columns.Add("Contribuicao", "Contribuição");
         dgvContribuicoes.Columns.Add("TipoContribuicao", "Tipo");
+        dgvContribuicoes.Columns.Add("Indicadores", "Indicadores");
 
         dgvContribuicoes.Columns["Indice"]!.Width = 30;
         dgvContribuicoes.Columns["Data"]!.Width = 100;
@@ -44,6 +45,7 @@ public partial class Form1 : Form
         dgvContribuicoes.Columns["Remuneracao"]!.Width = 120;
         dgvContribuicoes.Columns["Contribuicao"]!.Width = 120;
         dgvContribuicoes.Columns["TipoContribuicao"]!.Width = 150;
+        dgvContribuicoes.Columns["Indicadores"]!.Width = 150;
 
         dgvContribuicoes.Columns["Remuneracao"]!.DefaultCellStyle.Format = "C2";
         dgvContribuicoes.Columns["Contribuicao"]!.DefaultCellStyle.Format = "C2";
@@ -52,6 +54,7 @@ public partial class Form1 : Form
         dgvContribuicoes.Columns["Indice"]!.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
         dgvContribuicoes.Columns["Data"]!.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
         dgvContribuicoes.Columns["TipoContribuicao"]!.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+        dgvContribuicoes.Columns["Indicadores"]!.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
     }
 
     private void ConfigurarGridAgrupado()
@@ -79,7 +82,10 @@ public partial class Form1 : Form
     {
         var intervaloAtual = dtpDataFinal.Value.Subtract(dtpDataInicial.Value).Days;
         var intervaloMaximo = TimeSpan.FromDays(365 * 25).Days;
-        return intervaloAtual < intervaloMaximo;
+        return intervaloAtual < intervaloMaximo
+            || rdoSomenteExcedentes.Checked
+            || rdoSomenteAptosRestituicao.Checked
+            || rdoSomentesSemPendencia.Checked;
     }
 
     private async void btnImportarPdf_Click(object sender, EventArgs e)
@@ -152,21 +158,10 @@ public partial class Form1 : Form
         LimparFiltros();
     }
 
-    private void chkAptosRestituicao_CheckedChanged(object sender, EventArgs e)
+    private void rdo_CheckedChanged(object sender, EventArgs e)
     {
         AplicarFiltros();
     }
-
-    private void chkExcedentesAptos_CheckedChanged(object sender, EventArgs e)
-    {
-        AplicarFiltros();
-    }
-
-    private void chkComExcedente_CheckedChanged(object sender, EventArgs e)
-    {
-        AplicarFiltros();
-    }
-
 
     private void btnPaginaAnterior_Click(object sender, EventArgs e)
     {
@@ -190,15 +185,13 @@ public partial class Form1 : Form
     private void tabControl_SelectedIndexChanged(object sender, EventArgs e)
     {
         var naAbaLancamentos = tabControl.SelectedIndex == 0;
-        
+
         if (naAbaLancamentos)
         {
-            chkAptosRestituicao.Checked = false;
-            chkExcedentesAptos.Checked = false;
-            chkComExcedente.Checked = false;
+            rdoTodosExcedentes.Checked = true;
             AplicarFiltros();
         }
-        
+
         AtualizarEstadoControles();
     }
 
@@ -212,20 +205,14 @@ public partial class Form1 : Form
             dtpDataInicial.Value, 
             dtpDataFinal.Value).ToList();
 
-        if (chkAptosRestituicao.Checked)
-        {
-            _contribuicoesFiltradas = _inssServico.FiltrarAptosRestituicao(_contribuicoesFiltradas).ToList();
-        }
-
-        if (chkExcedentesAptos.Checked)
-        {
-            _contribuicoesFiltradas = _inssServico.FiltrarExcedentesAptos(_contribuicoesFiltradas).ToList();
-        }
-
-        if (chkComExcedente.Checked)
-        {
+        if (rdoSomenteExcedentes.Checked)
             _contribuicoesFiltradas = _inssServico.FiltrarComExcedente(_contribuicoesFiltradas).ToList();
-        }
+
+        if (rdoSomenteAptosRestituicao.Checked)
+            _contribuicoesFiltradas = _inssServico.FiltrarAptosRestituicao(_contribuicoesFiltradas).ToList();
+
+        if (rdoSomentesSemPendencia.Checked)
+            _contribuicoesFiltradas = _inssServico.FiltrarSemPendencia(_contribuicoesFiltradas).ToList();
 
         _contribuicoesFiltradas = OrdenarPorDataDesc(_contribuicoesFiltradas);
 
@@ -233,16 +220,16 @@ public partial class Form1 : Form
         AtualizarVisualizacao();
 
         var filtros = new List<string>();
-        
-        if (chkAptosRestituicao.Checked)
-            filtros.Add($"aptos para restituição");
-                
-        if (chkExcedentesAptos.Checked)
-            filtros.Add($"excedentes aptos com valor pago");
-                
-        if (chkComExcedente.Checked)
-            filtros.Add("competências com excedente");
-                
+
+        if (rdoSomenteExcedentes.Checked)
+            filtros.Add("somente excedentes");
+
+        if (rdoSomenteAptosRestituicao.Checked)
+            filtros.Add("aptos para restituição");
+
+        if (rdoSomentesSemPendencia.Checked)
+            filtros.Add("sem pendência");
+
         var filtroTexto = filtros.Count > 0 ? $" ({string.Join(" + ", filtros)})" : "";
         toolStripStatusLabel.Text = $"Filtro aplicado. {_contribuicoesFiltradas.Count} lançamentos no período{filtroTexto}.";
     }
@@ -251,9 +238,9 @@ public partial class Form1 : Form
     {
         dtpDataInicial.Value = DateTime.Now.AddYears(-30);
         dtpDataFinal.Value = DateTime.Now;
-        chkAptosRestituicao.Checked = false;
-        chkExcedentesAptos.Checked = false;
-        chkComExcedente.Checked = false;
+        rdoTodosExcedentes.Checked = true;
+        rdoTodosRestituicao.Checked = true;
+        rdoTodosPendencia.Checked = true;
 
         if (_contribuidorAtual == null)
         {
@@ -297,7 +284,8 @@ public partial class Form1 : Form
                 contribuicao.Empregador,
                 contribuicao.Remuneracao,
                 contribuicao.Contribuicao,
-                contribuicao.TipoContribuicao);
+                contribuicao.TipoContribuicao,
+                contribuicao.Indicadores);
         }
     }
 
@@ -410,10 +398,10 @@ public partial class Form1 : Form
         groupBoxPaginacao.Enabled = temDados && naAbaLancamentos;
         dgvContribuicoes.Enabled = temDados;
         dgvAgrupado.Enabled = temDados;
-        
-        chkAptosRestituicao.Enabled = temDados && naAbaCompetencia;
-        chkExcedentesAptos.Enabled = temDados && naAbaCompetencia;
-        chkComExcedente.Enabled = temDados && naAbaCompetencia;
+
+        panelExcedentes.Visible = naAbaCompetencia;
+        panelRestituicao.Enabled = temDados;
+        panelPendencia.Enabled = temDados;
     }
 
     private int CalcularTotalPaginas()

@@ -33,7 +33,7 @@ public class InssServico
 
     public bool AptoParaRestituicao(CompetenciaDTO contribuicao)
     {
-        if (IndicadoresCnis.BloqueiaRestituicao(contribuicao.Indicadores))
+        if (IndicadoresCnis.DesconsiderarContribuicao(contribuicao.Indicadores))
             return false;
 
         var competenciaInicio = ObterCompetenciaLimiteInicioRestituicao();
@@ -44,17 +44,14 @@ public class InssServico
 
     public bool TemExcedente(CompetenciaDTO contribuicao) => contribuicao.ExcedenteTeto > 0;
 
-    public bool TemExcedenteAptoParaRestituicao(CompetenciaDTO contribuicao) =>
-        TemExcedente(contribuicao) && AptoParaRestituicao(contribuicao);
-
     public IReadOnlyList<CompetenciaDTO> FiltrarComExcedente(IReadOnlyList<CompetenciaDTO> contribuicoes) =>
         Filtrar(contribuicoes, TemExcedente);
 
     public IReadOnlyList<CompetenciaDTO> FiltrarAptosRestituicao(IReadOnlyList<CompetenciaDTO> contribuicoes) =>
         Filtrar(contribuicoes, c => AptoParaRestituicao(c));
 
-    public IReadOnlyList<CompetenciaDTO> FiltrarExcedentesAptos(IReadOnlyList<CompetenciaDTO> contribuicoes) =>
-        Filtrar(contribuicoes, TemExcedenteAptoParaRestituicao);
+    public IReadOnlyList<CompetenciaDTO> FiltrarSemPendencia(IReadOnlyList<CompetenciaDTO> contribuicoes) =>
+        Filtrar(contribuicoes, c => !IndicadoresCnis.ContribuicaoComPendencia(c.Indicadores));
 
     public IReadOnlyList<CompetenciaDTO> FiltrarPorPeriodo(
         IReadOnlyList<CompetenciaDTO> contribuicoes,

@@ -31,7 +31,7 @@ public class CnisServico
         @"(\d{2}/\d{2}/\d{4})(\d{2}/\d{2}/\d{4})?(\d{2}/\d{4})?(\d{3}\.\d{5}\.\d{2}-\d)(\d*)",
         RegexOptions.Compiled);
 
-    private const string PatternIndicador = @"([A-Z][A-Z0-9\-]*?(?=\d{2}/|\s|$))?";
+    private const string PatternIndicador = @"([A-Z][A-Z0-9,\- ]*?(?=\d{2}/\d{4}|[\r\n]|$))?";
 
     private static readonly Regex RegexContribuicaoStandard = new(
         @$"(\d{{2}}/\d{{4}})(\d{{1,3}}(?:\.\d{{3}})*,\d{{2}}){PatternIndicador}",
@@ -200,7 +200,7 @@ public class CnisServico
             registrosRemuneracao.Add(new RegistroRemuneracao(            
                 Competencia: competencia,
                 Remuneracao: remuneracao,
-                Indicadores: match.Groups[3].Value
+                Indicadores: match.Groups[3].Value.Trim()
             ));
         }
 
@@ -225,7 +225,7 @@ public class CnisServico
                 Estabelecimento: match.Groups[2].Value,
                 FormaPrestacao: match.Groups[3].Value.Trim(),
                 Remuneracao: remuneracao,
-                Indicadores: match.Groups[5].Value
+                Indicadores: match.Groups[5].Value.Trim()
             ));
         }
 
